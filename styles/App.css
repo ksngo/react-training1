@@ -1,0 +1,9 @@
+h1 {
+  color: orangered;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

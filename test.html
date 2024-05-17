@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.development.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/babel-standalone@6/babel.js"></script>
+  <script crossorigin
+    src="https://cdnjs.cloudflare.com/ajax/libs/styled-components/6.1.11/styled-components.min.js"></script>
+
+  <style>
+    h1 {
+      color: orangered;
+    }
+
+    main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    .widget-container {
+      color: green;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    //text/babel , treat as jsx
+    function MyApp() {
+
+      const [products, setProducts] = React.useState([]);
+
+      React.useEffect(() => {
+        fetch('https://fakestoreapi.com/products?limit=5')
+          .then(res => res.json())
+          .then(json => {
+            setProducts(json.map(j => j.title));
+          })
+      }, [])
+
+      return <React.Fragment>
+        <h1>Hello, world!</h1>
+        <main>
+          <Widget data={["male", "female"]} />
+          <Widget data={["zoo", "disney", "beach"]} />
+          <Widget data={products} />
+        </main>
+      </React.Fragment>
+    }
+
+    const Container = styled.div`
+      height: auto;
+      width: 300px;
+      
+    `
+
+    const Display = styled.div`
+      color: orange;
+      font-size: 32px;
+    `
+
+    const SelectContainer = styled.div`
+    position: relative;
+    box-sizing: border-box;
+    min-width: 200px;
+    >div:first-child {
+    ${(props) => props.openMenu ? `
+      background-color: white;
+      border-radius: 20px 20px 0px 0px;
+      border-width: 1px 1px 0px;
+      border-top-style: solid;
+      border-right-style: solid;
+      border-left-style: solid;
+      border-top-color: rgb(170, 170, 170);
+      border-right-color: rgb(170, 170, 170);
+      border-left-color: rgb(170, 170, 170);
+      border-image: initial;
+      border-bottom-style: initial;
+      border-bottom-color: initial;
+      padding: 0px 10px;
+      display: flex;
+      white-space: nowrap;
+      filter: drop-shadow(rgba(0, 0, 0, 0.16) 4px 4px 4px);
+      cursor: pointer;
+    ` :
+        `
+    background-color: white;
+    border-radius: 40px;
+    border: 1px solid rgb(170, 170, 170);
+    padding: 0px 10px;
+    display: flex;
+    white-space: nowrap;
+    cursor: pointer;
+    `}
+    >div:nth-child(1) {
+      align-items: center;
+      display: flex;
+      flex: 1 1 0%;
+      flex-wrap: wrap;
+      padding: 2px 8px;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      >div {
+        margin-left: 2px;
+        margin-right: 2px;
+        max-width: calc(100% - 8px);
+        overflow: hidden;
+        position: absolute;
+        text-overflow: ellipsis;
+        top: 50%;
+        transform: translateY(-50%);
+        box-sizing: border-box;
+        font-size: inherit;
+        line-height: inherit;
+      }
+    }
+    >div:nth-child(2) {
+      align-items: center;
+      align-self: stretch;
+      display: flex;
+      flex-shrink: 0;
+      box-sizing: border-box;
+      >div {
+        color: black;
+        display: flex;
+        padding: 8px;
+        transition: color 150ms ease 0s;
+        box-sizing: border-box;
+        opacity: 1;
+        >span.icon-caret-up{
+          font-size: 10px;
+          line-height: 1.4rem;
+          &::before {
+            content: "\\25b2";
+          }
+        }
+        >span.icon-caret-down{
+          font-size: 10px;
+          line-height: 1.4rem;
+          &::before {
+            content: "\\25bc";
+          }
+        }
+      }
+    }
+  }
+
+  
+  >div:nth-child(2) {
+    top: calc(100% - 6px);
+    background-color: rgb(255, 255, 255);
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 4px 11px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+    box-sizing: border-box;
+    border-width: 0px 1px 1px;
+    border-right-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-color: rgb(170, 170, 170);
+    border-bottom-color: rgb(170, 170, 170);
+    border-left-color: rgb(170, 170, 170);
+    border-image: initial;
+    border-top-style: initial;
+    border-top-color: initial;
+    >div {
+      max-height: 300px;
+      overflow-y: auto;
+      padding-bottom: 4px;
+      padding-top: 4px;
+      position: relative;
+      box-sizing: border-box;
+      //options
+      >div.red {
+        color: rgb(237, 89, 33);
+        cursor: pointer;
+        display: block;
+        font-size: inherit;
+        padding: 8px 12px;
+        width: 100%;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+        background: rgb(239, 239, 239);
+      }
+      >div{
+        background-color: transparent;
+        color: rgb(51, 51, 51);
+        cursor: default;
+        display: block;
+        font-size: inherit;
+        padding: 8px 12px;
+        width: 100%;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        box-sizing: border-box;
+      }
+    }
+  }
+  
+`
+
+    function Widget({ data }) {
+
+      const containerRef = React.useRef();
+      const [openMenu, setOpenMenu] = React.useState(false);
+      const [selections, setSelections] = React.useState();
+
+      const toggleSelection = () => {
+        setOpenMenu(!openMenu);
+      }
+
+      React.useEffect(() => {
+        setSelections({ current: "", options: data });
+      }, [data])
+
+      React.useEffect(() => {
+        function checkMouseDownLocation(e) {
+          if (containerRef && containerRef.current && !containerRef.current.contains(e.target)) {
+            setOpenMenu(false);
+          }
+        }
+
+        document.addEventListener("mousedown", checkMouseDownLocation);
+
+        return () => {
+          document.removeEventListener("mousedown", checkMouseDownLocation);
+        }
+      }, [containerRef])
+
+      return <Container ref={containerRef} className="widget-container">
+        <Display>{selections && selections.current}</Display>
+        <SelectContainer openMenu={openMenu}>
+          <div>
+            <div>
+              <div>{selections && selections.current}</div>
+            </div>
+            <div>
+              <div aria-hidden="true">
+                <span className={openMenu ? "icon-caret-up" : "icon-caret-down"} onClick={toggleSelection}></span>
+              </div>
+            </div>
+          </div>
+          {openMenu ?
+            <div>
+              <div>
+                {selections && selections.options.map((option) =>
+                  <div className={selections && option === selections.current ? "red" : ""} onClick={() => setSelections({ ...selections, current: option })} key={option}>{option}</div>
+                )}
+              </div>
+            </div> : null}
+        </SelectContainer>
+      </Container>
+    }
+
+
+    const container = document.getElementById('root');
+    const root = ReactDOM.createRoot(container);
+    root.render(<MyApp />);
+  </script>
+</body>
+
+</html>
