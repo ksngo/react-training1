@@ -29,6 +29,7 @@
 </head>
 
 <body>
+  <h2 onclick="(function(e){ console.log(e)})(event)">h2</h2>
   <div id="root"></div>
   <script type="text/babel">
     //text/babel , treat as jsx
@@ -217,7 +218,8 @@
       const [openMenu, setOpenMenu] = React.useState(false);
       const [selections, setSelections] = React.useState();
 
-      const toggleSelection = () => {
+      const toggleSelection = (e) => {
+        console.log(e)
         setOpenMenu(!openMenu);
       }
 

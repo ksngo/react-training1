@@ -18,7 +18,7 @@ const SelectContainer = styled.div`
   box-sizing: border-box;
   min-width: 200px;
   >div:first-child {
-    ${(props) => props.openMenu ? `
+    ${(props) => props.openmenu ? `
       background-color: white;
       border-radius: 20px 20px 0px 0px;
       border-width: 1px 1px 0px;
@@ -195,7 +195,7 @@ function Widget({data}) {
 
   return <Container ref={containerRef} className="widget-container">
     <Display>{selections?.current}</Display>
-    <SelectContainer openMenu={openMenu}>
+    <SelectContainer openmenu={openMenu}>
       <div>
         <div>
           <div>{selections?.current}</div>
